@@ -1,4 +1,4 @@
-package com.app.weatherapplication.di
+package com.app.weatherapplication.application
 
 import android.app.Application
 import dagger.hilt.android.HiltAndroidApp

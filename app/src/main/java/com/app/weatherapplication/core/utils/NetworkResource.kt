@@ -1,4 +1,4 @@
-package com.app.weatherapplication.core
+package com.app.weatherapplication.core.utils
 
 sealed class NetworkResource<T>(val data: T?, val throwable: Throwable?) {
     class Success<T>(data: T?) : NetworkResource<T>(data, null)

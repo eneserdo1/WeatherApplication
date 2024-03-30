@@ -43,7 +43,7 @@ abstract class BaseRemoteDataSource constructor(
             apiCall.invoke()
         }
         val response = when (networkResponse) {
-            is NetworkResource.Success -> networkResponse.data?.body()?.let { Result.Success(it) }
+            is NetworkResource.Success -> Result.Success(networkResponse.data!!.body()!!)
             is NetworkResource.Error -> {
                 Result.Error(null, networkResponse.throwable)
             }

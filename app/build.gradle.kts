@@ -1,3 +1,5 @@
+import java.util.Properties
+
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
@@ -19,6 +21,11 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
+    val localProperties = Properties().apply {
+        load(project.rootProject.file("local.properties").inputStream())
+    }
+    val apiKey: String = localProperties.getProperty("API_KEY", "")
+
     buildTypes {
         release {
             isMinifyEnabled = false
@@ -26,6 +33,13 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+            buildConfigField("String", "API_KEY", "\"$apiKey\"")
+            buildConfigField("String", "BASE_URL", "http://api.worldweatheronline.com/")
+        }
+
+        debug {
+            buildConfigField("String", "API_KEY", "\"$apiKey\"")
+            buildConfigField("String", "BASE_URL", "http://api.worldweatheronline.com/")
         }
     }
     compileOptions {
@@ -51,7 +65,9 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.9")
 
     //Retrofit
-    implementation("implementation 'com.squareup.retrofit2:retrofit:2.11.0'")
+    implementation("com.squareup.retrofit2:retrofit:2.11.0")
+    implementation("com.squareup.retrofit2:converter-gson:2.11.0")
+    implementation("com.squareup.okhttp3:logging-interceptor:4.9.1")
 
     //Hilt
     implementation("com.google.dagger:hilt-android:2.44")

@@ -1,6 +1,7 @@
 package com.app.weatherapplication.data.remoteDataSource
 
-import WeatherResponse
+import com.app.weatherapplication.BuildConfig
+import com.app.weatherapplication.data.model.WeatherResponse
 import com.app.weatherapplication.core.base.BaseRemoteDataSource
 import com.app.weatherapplication.core.utils.NetworkHelper
 import com.app.weatherapplication.core.utils.Result
@@ -14,7 +15,7 @@ class RemoteDataSourceImpl @Inject constructor(
     dispatcher: DispatcherProvider
 ) : RemoteDataSource, BaseRemoteDataSource(networkHelper, dispatcher) {
     override suspend fun getWeatherData(city: String): Flow<Result<WeatherResponse>> {
-        return baseRequestFlow { apiService.getCityWeather(city = city, key = "7f8") }
+        return baseRequestFlow { apiService.getCityWeather(city = city, key = BuildConfig.API_KEY) }
     }
 
 }

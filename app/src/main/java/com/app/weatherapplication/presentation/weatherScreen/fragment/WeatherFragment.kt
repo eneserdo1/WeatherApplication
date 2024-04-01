@@ -6,6 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
+import com.app.weatherapplication.R
 import com.app.weatherapplication.data.model.Weather
 import com.app.weatherapplication.databinding.FragmentWeatherBinding
 import com.app.weatherapplication.presentation.main.viewmodel.MainViewModel
@@ -36,6 +38,13 @@ class WeatherFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         initObservers()
+        initButtonsListener()
+    }
+
+    private fun initButtonsListener() {
+        binding.addButton.setOnClickListener {
+            findNavController().navigate(R.id.action_weatherFragment_to_cityListFragment)
+        }
     }
 
     private fun initAdapter(weatherList: List<Weather>) {

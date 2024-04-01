@@ -9,5 +9,15 @@
         android:id="@+id/weatherFragment"
         android:name="com.app.weatherapplication.presentation.weatherScreen.fragment.WeatherFragment"
         android:label="fragment_weather"
-        tools:layout="@layout/fragment_weather" />
+        tools:layout="@layout/fragment_weather" >
+        <action
+            android:id="@+id/action_weatherFragment_to_cityListFragment"
+            app:destination="@id/cityListFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/cityListFragment"
+        android:name="com.app.weatherapplication.presentation.cityListScreen.fragment.CityListFragment"
+        android:label="fragment_city_list"
+        tools:layout="@layout/fragment_city_list" />
 </navigation>

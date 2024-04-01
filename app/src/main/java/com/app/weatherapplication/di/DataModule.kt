@@ -1,7 +1,11 @@
 package com.app.weatherapplication.di
 
+import android.content.Context
+import androidx.room.Room
 import com.app.weatherapplication.core.utils.NetworkHelper
 import com.app.weatherapplication.data.api.ApiService
+import com.app.weatherapplication.data.dao.CityDao
+import com.app.weatherapplication.data.database.CityDatabase
 import com.app.weatherapplication.data.remoteDataSource.RemoteDataSource
 import com.app.weatherapplication.data.remoteDataSource.RemoteDataSourceImpl
 import com.app.weatherapplication.data.repository.Repository
@@ -11,6 +15,7 @@ import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import retrofit2.Retrofit
 import javax.inject.Singleton
@@ -42,8 +47,8 @@ abstract class DataModule {
 
         @Singleton
         @Provides
-        fun provideRepository(remoteDataSource: RemoteDataSource): Repository {
-            return Repository(remoteDataSource)
+        fun provideRepository(remoteDataSource: RemoteDataSource, cityDao: CityDao): Repository {
+            return Repository(remoteDataSource, cityDao)
         }
 
         @Singleton
@@ -51,6 +56,21 @@ abstract class DataModule {
         fun provideWeatherUseCase(repository: Repository, mapper: WeatherMapper): WeatherUseCase {
             return WeatherUseCase(repository, mapper)
         }
+
+        @Singleton
+        @Provides
+        fun provideCityDatabase(@ApplicationContext context: Context): CityDatabase {
+            return Room.databaseBuilder(
+                context.applicationContext,
+                CityDatabase::class.java,
+                "city_database"
+            ).build()
+        }
+
+
+        @Singleton
+        @Provides
+        fun provideDao(db: CityDatabase) = db.cityDao()
 
 
     }

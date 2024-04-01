@@ -1,7 +1,7 @@
 package com.app.weatherapplication.domain.model
 
-import CurrentCondition
-import Weather
+import com.app.weatherapplication.data.model.CurrentCondition
+import com.app.weatherapplication.data.model.Weather
 
 data class WeatherModel(
     val city: String,

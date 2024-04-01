@@ -1,3 +1,5 @@
+package com.app.weatherapplication.data.model
+
 import com.google.gson.annotations.SerializedName
 
 data class WeatherResponse(

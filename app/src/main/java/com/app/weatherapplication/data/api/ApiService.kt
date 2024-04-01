@@ -1,6 +1,6 @@
 package com.app.weatherapplication.data.api
 
-import WeatherResponse
+import com.app.weatherapplication.data.model.WeatherResponse
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query

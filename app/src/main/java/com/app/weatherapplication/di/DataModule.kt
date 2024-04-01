@@ -48,8 +48,10 @@ abstract class DataModule {
 
         @Singleton
         @Provides
-        fun provideUserUseCase(repository: Repository, mapper: WeatherMapper): WeatherUseCase {
+        fun provideWeatherUseCase(repository: Repository, mapper: WeatherMapper): WeatherUseCase {
             return WeatherUseCase(repository, mapper)
         }
+
+
     }
 }

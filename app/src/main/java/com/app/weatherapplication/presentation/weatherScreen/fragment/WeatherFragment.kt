@@ -8,6 +8,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
+import com.app.mydiaryapp.data.sharedPreferences.PreferencesHelper
 import com.app.weatherapplication.R
 import com.app.weatherapplication.data.model.Weather
 import com.app.weatherapplication.databinding.FragmentWeatherBinding
@@ -25,6 +26,10 @@ class WeatherFragment : Fragment() {
 
     private lateinit var adapter: WeatherForecastAdapter
 
+    private val sharedPreferencesHelper: PreferencesHelper by lazy {
+        PreferencesHelper.getInstance(requireContext())
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -40,10 +45,26 @@ class WeatherFragment : Fragment() {
 
         initObservers()
         initButtonsListener()
+
+    }
+
+    override fun onResume() {
+        super.onResume()
+        val selectedCity = sharedPreferencesHelper.selectedCity
+        if (selectedCity.isNotEmpty()) {
+            viewModel.getWeatherData(selectedCity)
+        } else {
+            binding.emptyScreen.visibility = View.VISIBLE
+            binding.loading.root.visibility = View.GONE
+        }
     }
 
     private fun initButtonsListener() {
         binding.addButton.setOnClickListener {
+            findNavController().navigate(R.id.action_weatherFragment_to_cityListFragment)
+        }
+
+        binding.addCityButton.setOnClickListener {
             findNavController().navigate(R.id.action_weatherFragment_to_cityListFragment)
         }
     }
@@ -57,18 +78,23 @@ class WeatherFragment : Fragment() {
     private fun initObservers() {
         viewModel.weatherData.observe(viewLifecycleOwner) {
             binding.loading.root.visibility = View.GONE
-            if (it != null) {
+            if (it != null && sharedPreferencesHelper.selectedCity.isNotEmpty()) {
+                binding.emptyScreen.visibility = View.GONE
                 initAdapter(it.weatherForecast)
                 binding.apply {
                     cityName.text = it.city
                     temperatureText.text = it.currentCondition.tempC + "°C"
                     temperatureDescriptionText.text = it.currentCondition.weatherDesc.first().value
                 }
+                return@observe
             }
+
+            binding.emptyScreen.visibility = View.VISIBLE
+
         }
 
         viewModel.loading.observe(viewLifecycleOwner) {
-            binding.loading.root.visibility = View.VISIBLE
+            binding.loading.root.visibility = if (it) View.VISIBLE else View.GONE
         }
 
         viewModel.error.observe(viewLifecycleOwner) {
@@ -77,9 +103,6 @@ class WeatherFragment : Fragment() {
         }
     }
 
-    companion object {
-        @JvmStatic
-        fun newInstance() =
-            WeatherFragment()
-    }
+
+
 }

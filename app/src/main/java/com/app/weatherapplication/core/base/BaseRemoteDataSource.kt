@@ -47,8 +47,6 @@ abstract class BaseRemoteDataSource constructor(
             is NetworkResource.Error -> {
                 Result.Error(null, networkResponse.throwable)
             }
-
-            else -> Result.Error(null, null)
         }
         emit(response)
     }

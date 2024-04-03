@@ -6,5 +6,5 @@ import kotlinx.coroutines.flow.Flow
 
 interface RemoteDataSource {
 
-    suspend fun getWeatherData(city: String): Flow<Result<WeatherResponse>>
+    suspend fun getWeatherData(city: String): Flow<Result<WeatherResponse>?>
 }

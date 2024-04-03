@@ -14,7 +14,7 @@ class RemoteDataSourceImpl @Inject constructor(
     private val apiService: ApiService, networkHelper: NetworkHelper,
     dispatcher: DispatcherProvider
 ) : RemoteDataSource, BaseRemoteDataSource(networkHelper, dispatcher) {
-    override suspend fun getWeatherData(city: String): Flow<Result<WeatherResponse>> {
+    override suspend fun getWeatherData(city: String): Flow<Result<WeatherResponse>?> {
         return baseRequestFlow { apiService.getCityWeather(city = city, key = BuildConfig.API_KEY) }
     }
 

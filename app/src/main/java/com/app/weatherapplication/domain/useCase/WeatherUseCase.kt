@@ -18,9 +18,8 @@ class WeatherUseCase @Inject constructor(
             when (res) {
                 is Result.Loading -> Result.Loading
                 is Result.Error -> Result.Error(res.message, res.throwable)
-                is Result.Success -> Result.Success(
-                    mapper.mapFrom(res.data)
-                )
+                is Result.Success -> Result.Success(mapper.mapFrom(res.data))
+                else -> Result.Error("Unknown error", null)
             }
         }
     }

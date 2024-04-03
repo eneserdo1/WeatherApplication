@@ -10,14 +10,19 @@ import com.app.weatherapplication.data.repository.Repository
 import com.app.weatherapplication.domain.model.WeatherModel
 import com.app.weatherapplication.domain.useCase.WeatherUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class MainViewModel @Inject constructor(private val useCase: WeatherUseCase, private val repository: Repository) : BaseViewModel() {
+class MainViewModel @Inject constructor(
+    private val useCase: WeatherUseCase,
+    private val repository: Repository
+) : BaseViewModel() {
 
-    private val _weatherData: MutableLiveData<WeatherModel> = MutableLiveData()
-    val weatherData: LiveData<WeatherModel> get() = _weatherData
+    private val _weatherData: MutableLiveData<WeatherModel?> = MutableLiveData()
+    val weatherData: LiveData<WeatherModel?> get() = _weatherData
+
 
     fun getWeatherData(city: String) {
         viewModelScope.launch {
@@ -33,15 +38,16 @@ class MainViewModel @Inject constructor(private val useCase: WeatherUseCase, pri
         }
     }
 
+
     fun getCityList() = repository.allCities
 
-    fun deleteCity(city: City) = viewModelScope.launch {
+    fun deleteCity(city: City) = viewModelScope.launch(Dispatchers.IO) {
         repository.delete(city)
+        getCityList()
     }
 
-    fun addCity(cityName: String) = viewModelScope.launch {
-        val city = City(cityName = cityName)
-        repository.insert(city)
+    fun addCity(cityName: String) = viewModelScope.launch(Dispatchers.IO) {
+        repository.insert(City(cityName = cityName))
     }
-
+    
 }

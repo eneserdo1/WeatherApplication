@@ -7,7 +7,7 @@ import com.app.weatherapplication.data.entity.City
 @Dao
 interface CityDao {
 
-    @Query("SELECT * FROM city_table ORDER BY id DESC")
+    @Query("SELECT * FROM city_table")
     fun getAllCities(): LiveData<List<City>>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)

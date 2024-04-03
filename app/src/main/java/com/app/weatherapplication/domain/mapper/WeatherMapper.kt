@@ -1,7 +1,7 @@
 package com.app.weatherapplication.domain.mapper
 
-import com.app.weatherapplication.data.model.WeatherResponse
 import com.app.weatherapplication.core.utils.Mapper
+import com.app.weatherapplication.data.model.WeatherResponse
 import com.app.weatherapplication.domain.model.WeatherModel
 import javax.inject.Inject
 

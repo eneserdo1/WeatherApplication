@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -55,20 +56,24 @@ class WeatherFragment : Fragment() {
 
     private fun initObservers() {
         viewModel.weatherData.observe(viewLifecycleOwner) {
-            initAdapter(it.weatherForecast)
-            binding.apply {
-                cityName.text = it.city
-                temperatureText.text = it.currentCondition.tempC + "°C"
-                temperatureDescriptionText.text = it.currentCondition.weatherDesc.first().value
+            binding.loading.root.visibility = View.GONE
+            if (it != null) {
+                initAdapter(it.weatherForecast)
+                binding.apply {
+                    cityName.text = it.city
+                    temperatureText.text = it.currentCondition.tempC + "°C"
+                    temperatureDescriptionText.text = it.currentCondition.weatherDesc.first().value
+                }
             }
         }
 
         viewModel.loading.observe(viewLifecycleOwner) {
-
+            binding.loading.root.visibility = View.VISIBLE
         }
 
         viewModel.error.observe(viewLifecycleOwner) {
-
+            binding.loading.root.visibility = View.GONE
+            Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
         }
     }
 

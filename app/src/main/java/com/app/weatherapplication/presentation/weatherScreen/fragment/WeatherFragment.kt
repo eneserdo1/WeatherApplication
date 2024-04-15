@@ -8,7 +8,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
-import com.app.mydiaryapp.data.sharedPreferences.PreferencesHelper
+import com.app.weatherapplication.data.sharedPreferences.PreferencesHelper
 import com.app.weatherapplication.R
 import com.app.weatherapplication.data.model.Weather
 import com.app.weatherapplication.databinding.FragmentWeatherBinding

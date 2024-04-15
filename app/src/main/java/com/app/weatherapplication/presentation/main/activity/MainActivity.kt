@@ -4,7 +4,7 @@ import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.NavHostFragment
-import com.app.mydiaryapp.data.sharedPreferences.PreferencesHelper
+import com.app.weatherapplication.data.sharedPreferences.PreferencesHelper
 import com.app.weatherapplication.R
 import com.app.weatherapplication.databinding.ActivityMainBinding
 import com.app.weatherapplication.presentation.main.viewmodel.MainViewModel

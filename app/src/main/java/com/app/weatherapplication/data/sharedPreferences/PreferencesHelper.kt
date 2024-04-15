@@ -1,4 +1,4 @@
-package com.app.mydiaryapp.data.sharedPreferences
+package com.app.weatherapplication.data.sharedPreferences
 
 import android.content.Context
 import android.content.SharedPreferences

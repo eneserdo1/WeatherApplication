@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
-import com.app.mydiaryapp.data.sharedPreferences.PreferencesHelper
+import com.app.weatherapplication.data.sharedPreferences.PreferencesHelper
 import com.app.weatherapplication.data.entity.City
 import com.app.weatherapplication.databinding.FragmentCityListBinding
 import com.app.weatherapplication.presentation.cityListScreen.adapter.CityAdapter

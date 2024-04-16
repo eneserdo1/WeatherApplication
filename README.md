@@ -6,7 +6,7 @@ This project is a mobile application that displays weather information. Users ca
 
 ## Project Structure
 
-<img height= "300" width="800" src="(https://github.com/eneserdo1/WeatherApplication/assets/60261458/9f25ca2d-5e34-4a34-8d84-0c15e75cdc52" />
+<img height= "300" width="800" src="https://github.com/eneserdo1/WeatherApplication/assets/60261458/585f0e41-dd6a-4c8d-8d37-cd504915fe2c" />
 
 ## Technologies
 
